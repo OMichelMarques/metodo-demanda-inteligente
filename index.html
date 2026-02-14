@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Método Demanda Inteligente</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #FAFAF7;
+      --bg-warm: #F5F0EB;
+      --bg-dark: #1A1A1A;
+      --bg-card: #FFFFFF;
+      --text-primary: #1A1A1A;
+      --text-secondary: #4A4A4A;
+      --text-muted: #7A7A7A;
+      --text-on-dark: #F5F0EB;
+      --accent: #1A1A1A;
+      --accent-soft: #D4C5B2;
+      --border: #E5E0DA;
+      --border-light: #EDEBE8;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding: 80px 0 60px;
+      background: var(--bg-primary);
+    }
+
+    .hero__badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5.5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      max-width: 680px;
+    }
+
+    .hero__subtitle {
+      font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-bottom: 36px;
+      line-height: 1.75;
+    }
+
+    .hero__filter {
+      padding: 20px 24px;
+      background: var(--bg-warm);
+      border-radius: 8px;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .hero__filter p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .hero__filter strong {
+      color: var(--text-primary);
+    }
+
+    /* ========== CTA BUTTON ========== */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      background: var(--bg-dark);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.25s, transform 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .cta-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .cta-btn--secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1.5px solid var(--text-primary);
+    }
+
+    .cta-btn--secondary:hover {
+      background: var(--text-primary);
+      color: #fff;
+    }
+
+    .cta-note {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    /* ========== SECTION BASE ========== */
+    .section {
+      padding: 72px 0;
+    }
+
+    .section--warm {
+      background: var(--bg-warm);
+    }
+
+    .section--dark {
+      background: var(--bg-dark);
+      color: var(--text-on-dark);
+    }
+
+    .section__label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .section--dark .section__label {
+      color: var(--accent-soft);
+    }
+
+    .section__title {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .section__text {
+      font-size: 1.02rem;
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .section--dark .section__text {
+      color: #B8B0A6;
+    }
+
+    /* ========== PROBLEM SECTION ========== */
+    .problem-list {
+      list-style: none;
+      margin: 32px 0;
+    }
+
+    .problem-list li {
+      padding: 14px 0;
+      font-size: 1.02rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-light);
+      line-height: 1.7;
+    }
+
+    .problem-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* ========== FAILING SOLUTIONS ========== */
+    .fail-grid {
+      display: grid;
+      gap: 16px;
+      margin: 36px 0;
+    }
+
+    .fail-card {
+      padding: 22px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .fail-card__title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .fail-card__text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ========== METHOD STEPS ========== */
+    .steps {
+      margin: 40px 0;
+    }
+
+    .step {
+      padding: 36px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    .step__number {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--accent-soft);
+      margin-bottom: 12px;
+    }
+
+    .step__title {
+      font-size: clamp(1.3rem, 3vw, 1.7rem);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .step__text {
+      font-size: 1rem;
+      color: #B8B0A6;
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    .step__detail {
+      margin-top: 14px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 6px;
+      border-left: 2px solid var(--accent-soft);
+      font-size: 0.92rem;
+      color: #9A9289;
+      line-height: 1.7;
+    }
+
+    /* ========== DELIVERABLES ========== */
+    .deliverables-list {
+      list-style: none;
+      margin: 32px 0;
+    }
+
+    .deliverables-list li {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .deliverables-list li:last-child {
+      border-bottom: none;
+    }
+
+    .deliverables-list .check {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--bg-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .deliverables-list .check svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .deliverables-list .item-content strong {
+      display: block;
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .deliverables-list .item-content span {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ========== DIFFERENTIALS ========== */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 36px 0;
+    }
+
+    @media (max-width: 600px) {
+      .diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .diff-card {
+      padding: 24px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .diff-card__title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--text-on-dark);
+      margin-bottom: 8px;
+    }
+
+    .diff-card__text {
+      font-size: 0.88rem;
+      color: #9A9289;
+      line-height: 1.65;
+    }
+
+    /* ========== AUTHORITY ========== */
+    .authority-block {
+      padding: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin: 32px 0;
+    }
+
+    .authority-block p {
+      font-size: 1.02rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .authority-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .results-grid {
+      display: grid;
+      gap: 14px;
+      margin: 28px 0;
+    }
+
+    .result-item {
+      padding: 18px 22px;
+      background: var(--bg-warm);
+      border-radius: 8px;
+    }
+
+    .result-item__before {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .result-item__after {
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ========== PRICING ========== */
+    .pricing-card {
+      max-width: 520px;
+      margin: 36px auto;
+      padding: 40px 36px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .pricing-card__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .pricing-card__price {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .pricing-card__installment {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .pricing-card__total {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .pricing-card__anchor {
+      padding: 16px 20px;
+      background: var(--bg-warm);
+      border-radius: 8px;
+      margin-bottom: 28px;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .pricing-card .cta-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .pricing-card__spots {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ========== FAQ ========== */
+    .faq-list {
+      margin: 32px 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .faq-question:hover {
+      color: var(--text-secondary);
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-icon::before,
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: var(--text-muted);
+      border-radius: 1px;
+    }
+
+    .faq-icon::before {
+      width: 14px;
+      height: 1.5px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .faq-icon::after {
+      width: 1.5px;
+      height: 14px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .faq-item.open .faq-icon::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+      opacity: 0;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+    }
+
+    .faq-answer__inner {
+      padding-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ========== FINAL CTA ========== */
+    .final-cta {
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .final-cta h2 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      margin-bottom: 16px;
+    }
+
+    .final-cta p {
+      font-size: 1.02rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.75;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ========== STICKY CTA (mobile) ========== */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-light);
+      z-index: 100;
+      text-align: center;
+    }
+
+    .sticky-cta .cta-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 14px 24px;
+      font-size: 0.9rem;
+    }
+
+    .sticky-cta.visible {
+      display: block;
+    }
+
+    /* ========== DIVIDER ========== */
+    .divider {
+      width: 48px;
+      height: 1.5px;
+      background: var(--accent-soft);
+      margin: 40px 0;
+    }
+
+    .section--dark .divider {
+      background: rgba(212,197,178,0.3);
+    }
+
+    /* ========== INLINE CTA SECTION ========== */
+    .inline-cta {
+      padding: 48px 0;
+      text-align: center;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .inline-cta p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 0 48px;
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      .pricing-card {
+        padding: 32px 24px;
+      }
+
+      .authority-block {
+        padding: 24px;
+      }
+
+      body {
+        padding-bottom: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero__badge">Método Demanda Inteligente</span>
+      <h1>Sua agenda vazia não é falta de esforço. É falta de direção.</h1>
+      <p class="hero__subtitle">
+        Um sistema de posicionamento e comunicação que enche sua agenda de terapia com clientes comprometidos, sem precisar postar todo dia, sem viralizar, sem virar refém do Instagram.
+      </p>
+      <div class="hero__filter">
+        <p>
+          <strong>Isso é pra você se:</strong> é terapeuta, tem formação, faz um bom trabalho, mas sua agenda está vazia ou instável. Você sabe que pode ajudar mais pessoas, mas não sabe como fazer elas chegarem até você.
+        </p>
+      </div>
+      <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn" target="_blank" rel="noopener">
+        Quero preencher minha agenda
+      </a>
+      <span class="cta-note">8 vagas por mês. Atendimento individual.</span>
+    </div>
+  </section>
+
+  <!-- ==================== PROBLEMA ==================== -->
+  <section class="section section--warm">
+    <div class="container">
+      <span class="section__label">O problema real</span>
+      <h2 class="section__title">Você está fazendo a coisa certa do jeito errado.</h2>
+      <p class="section__text">
+        Você posta, grava stories, tenta ser consistente. Faz tudo que dizem pra fazer. Mesmo assim, o telefone não toca. A agenda continua com buracos. E no final do mês, a conta não fecha.
+      </p>
+      <p class="section__text">
+        O problema não é você. O problema é que ninguém te ensinou a falar de um jeito que a pessoa certa se identifique.
+      </p>
+      <ul class="problem-list">
+        <li>Você posta todo dia e os seguidores curtem, mas ninguém agenda.</li>
+        <li>Quando alguém chama no WhatsApp, some depois de saber o preço. Ou pede desconto. Ou desmarca.</li>
+        <li>Você olha pra colegas com agenda cheia e pensa que está fazendo algo errado. Começa a duvidar da sua competência.</li>
+        <li>Tem vergonha de dizer quantos pacientes atende por semana. Sente que deveria estar mais à frente.</li>
+        <li>A instabilidade financeira pesa. Você ama o que faz, mas começa a pensar se não deveria voltar pra CLT.</li>
+      </ul>
+      <div class="divider"></div>
+      <p class="section__text">
+        Nada disso é falta de competência. É falta de uma estrutura que conecta o seu trabalho com as pessoas que precisam dele.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== SOLUÇÕES QUE FALHAM ==================== -->
+  <section class="section">
+    <div class="container">
+      <span class="section__label">O que você já tentou</span>
+      <h2 class="section__title">Caminhos comuns que não funcionam pra terapeuta.</h2>
+      <p class="section__text">
+        Você provavelmente já tentou pelo menos dois desses. E não funcionou. Não é culpa sua. Esses caminhos não foram pensados pra quem faz o que você faz.
+      </p>
+      <div class="fail-grid">
+        <div class="fail-card">
+          <p class="fail-card__title">Fazer curso de tráfego pago</p>
+          <p class="fail-card__text">Técnico demais. Você começa empolgada, se perde no gerenciador de anúncios e desiste no meio. Não foi feito pra terapeuta.</p>
+        </div>
+        <div class="fail-card">
+          <p class="fail-card__title">Pedir indicação pra amigos e conhecidos</p>
+          <p class="fail-card__text">Chegam clientes sem compromisso. Desmarcam em cima da hora, pedem desconto, não valorizam o processo. E ainda criam constrangimento.</p>
+        </div>
+        <div class="fail-card">
+          <p class="fail-card__title">Copiar o que funciona pra coach</p>
+          <p class="fail-card__text">Terapeuta não é coach. Quem precisa de terapia não responde a gatilhos de urgência e escassez. Essa abordagem afasta as pessoas certas.</p>
+        </div>
+        <div class="fail-card">
+          <p class="fail-card__title">Esperar o Instagram entregar clientes</p>
+          <p class="fail-card__text">Postar e torcer pra que o algoritmo te mostre pra pessoa certa é jogar na loteria. Nunca acontece de forma consistente.</p>
+        </div>
+        <div class="fail-card">
+          <p class="fail-card__title">Contratar social media</p>
+          <p class="fail-card__text">Posts bonitos, identidade visual alinhada. Mas social media não sabe psicologia de compra. Seu feed fica lindo e a agenda continua vazia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INLINE CTA ==================== -->
+  <div class="inline-cta">
+    <div class="container">
+      <p>Se você se identificou com pelo menos dois desses, continue lendo.</p>
+      <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn cta-btn--secondary" target="_blank" rel="noopener">
+        Quero conhecer o método
+      </a>
+    </div>
+  </div>
+
+  <!-- ==================== O MÉTODO ==================== -->
+  <section class="section section--dark">
+    <div class="container">
+      <span class="section__label">Como funciona</span>
+      <h2 class="section__title" style="color: var(--text-on-dark);">Método Demanda Inteligente: 3 etapas pra encher sua agenda com as pessoas certas.</h2>
+      <p class="section__text">
+        O método usa um conceito chamado <strong style="color: var(--text-on-dark);">Comunicação Seletiva</strong>. Você fala de um jeito que só quem tem o problema se identifica. A pessoa certa pensa "ela está falando comigo". Quem não é pra você, passa reto. Sem esforço. Sem filtrar manualmente.
+      </p>
+      <div class="divider"></div>
+      <div class="steps">
+
+        <div class="step">
+          <p class="step__number">ETAPA 01</p>
+          <h3 class="step__title" style="color: var(--text-on-dark);">Posição</h3>
+          <p class="step__text">
+            Você se posiciona de forma específica pra um problema. Não genérica. Não "terapeuta holística que trata ansiedade, autoestima e relacionamento". Uma posição clara que faz a pessoa certa pensar: "é exatamente isso que eu preciso".
+          </p>
+          <div class="step__detail">
+            Você vai sair dessa etapa com: identificação da sua situação única, perfil do cliente ideal e uma mensagem de posicionamento em uma frase.
+          </div>
+        </div>
+
+        <div class="step">
+          <p class="step__number">ETAPA 02</p>
+          <h3 class="step__title" style="color: var(--text-on-dark);">Repetição</h3>
+          <p class="step__text">
+            Posts com Comunicação Seletiva, impulsionados com R$11 por dia, colocam sua mensagem na frente de quem precisa do seu trabalho e paga bem por isso. Simples. Sem gerenciador complexo. Seu Instagram passa a trabalhar 24 horas por dia, mesmo quando você está atendendo ou descansando.
+          </p>
+          <div class="step__detail">
+            Sem precisar aprender tráfego pago técnico. É um passo a passo simples que qualquer pessoa consegue seguir.
+          </div>
+        </div>
+
+        <div class="step">
+          <p class="step__number">ETAPA 03</p>
+          <h3 class="step__title" style="color: var(--text-on-dark);">Fechamento</h3>
+          <p class="step__text">
+            Um roteiro de conversa que fecha em poucas mensagens. O sistema elimina curiosos antes de chegarem até você. Quem chega já entende o que você faz, já se identificou e está disposta a pagar. Você só organiza os dias de atendimento.
+          </p>
+          <div class="step__detail">
+            Sem perder uma hora no WhatsApp com quem só quer saber o preço pra sumir depois.
+          </div>
+        </div>
+
+      </div>
+      <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn" style="background:#fff;color:#1A1A1A;" target="_blank" rel="noopener">
+        Quero aplicar esse método
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== ENTREGÁVEIS ==================== -->
+  <section class="section">
+    <div class="container">
+      <span class="section__label">O que você recebe</span>
+      <h2 class="section__title">Tudo que você precisa pra sair da instabilidade e montar uma agenda consistente.</h2>
+      <p class="section__text">
+        Isso não é um curso pra você assistir e se virar. É uma estrutura montada com você, pra você, com acompanhamento de quem entende de posicionamento e comunicação estratégica.
+      </p>
+      <ul class="deliverables-list">
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>Posicionamento completo</strong>
+            <span>Sua situação única identificada, perfil do cliente ideal definido e mensagem de posicionamento em uma frase.</span>
+          </div>
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>Posts com Comunicação Seletiva</strong>
+            <span>Textos escritos pra conduzir à ação. Não posts bonitos que ninguém lê. Posts que fazem a pessoa certa parar, ler e chamar no privado.</span>
+          </div>
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>Roteiro de fechamento pra DM</strong>
+            <span>Conversa estruturada que fecha em poucas mensagens. Sem enrolação, sem parecer vendedora.</span>
+          </div>
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>Oferta ajustada pra cobrar mais</strong>
+            <span>Reorganização da sua oferta pra aumentar percepção de valor. Você vai cobrar o que seu trabalho realmente vale.</span>
+          </div>
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>Estratégia de impulsionamento passo a passo</strong>
+            <span>R$11 por dia. Simples. Sem complicação técnica. Sem precisar entender de tráfego pago.</span>
+          </div>
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>Rotina de 3 Pilares pra Stories</strong>
+            <span>Alinhamento, Resultado e Oferta. 5 minutos por dia, sem ter que inventar conteúdo.</span>
+          </div>
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>Calendário de publicação</strong>
+            <span>Você sabe exatamente o que postar e quando. Sem ficar pensando toda hora o que fazer.</span>
+          </div>
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>Sistema de qualificação automática</strong>
+            <span>Filtra curiosos antes de chegarem até você. Só chega quem está pronta pra começar.</span>
+          </div>
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="item-content">
+            <strong>60 dias de suporte direto</strong>
+            <span>Acompanhamento individual pra ajustar o que precisar. Você não fica sozinha.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================== DIFERENCIAIS ==================== -->
+  <section class="section section--dark">
+    <div class="container">
+      <span class="section__label">Por que é diferente</span>
+      <h2 class="section__title" style="color: var(--text-on-dark);">Isso não é mais um curso de marketing digital.</h2>
+      <p class="section__text">
+        Não é curso pra você assistir 40 horas de aula e aplicar sozinha. É uma estrutura montada junto com você, baseada em como operações de alto faturamento funcionam na prática.
+      </p>
+      <div class="diff-grid">
+        <div class="diff-card">
+          <p class="diff-card__title">Comunicação Seletiva</p>
+          <p class="diff-card__text">Não é sobre volume. É sobre direção. Você fala pra menos gente, mas a gente certa.</p>
+        </div>
+        <div class="diff-card">
+          <p class="diff-card__title">Impulsionamento simples</p>
+          <p class="diff-card__text">R$11 por dia. Sem gerenciador de anúncios complexo. Sem precisar virar especialista em tráfego.</p>
+        </div>
+        <div class="diff-card">
+          <p class="diff-card__title">Qualificação automática</p>
+          <p class="diff-card__text">Você não perde mais uma hora no WhatsApp com quem só quer saber o preço. Curiosos se eliminam sozinhos.</p>
+        </div>
+        <div class="diff-card">
+          <p class="diff-card__title">Baseado em operações reais</p>
+          <p class="diff-card__text">6 anos trabalhando em operações que faziam R$2 milhões por mês com essa lógica de posicionamento e comunicação.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROVA SOCIAL ==================== -->
+  <section class="section section--warm">
+    <div class="container">
+      <span class="section__label">Resultados</span>
+      <h2 class="section__title">O que muda quando a estrutura certa está no lugar.</h2>
+      <div class="authority-block">
+        <p>
+          Nos últimos 6 anos, trabalhei dentro de operações que faturavam R$2 milhões por mês aplicando essa mesma lógica: posicionamento específico e comunicação estratégica. Não é teoria de livro. É o que funciona na prática, adaptado pra realidade de quem atende individualmente.
+        </p>
+        <p>
+          Terapeutas que aplicaram esse método saíram de cenários como os seus e chegaram em lugares que pareciam distantes.
+        </p>
+      </div>
+      <div class="results-grid">
+        <div class="result-item">
+          <p class="result-item__before">Antes: clientes instáveis que desmarcavam e não pagavam em dia</p>
+          <p class="result-item__after">Depois: clientes comprometidos que valorizam o trabalho e pagam o valor justo</p>
+        </div>
+        <div class="result-item">
+          <p class="result-item__before">Antes: agenda com buracos toda semana</p>
+          <p class="result-item__after">Depois: agenda estável, com lista de espera</p>
+        </div>
+        <div class="result-item">
+          <p class="result-item__before">Antes: refém do Instagram, postando todo dia sem resultado</p>
+          <p class="result-item__after">Depois: estrutura trabalhando por ela, com previsibilidade</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+  <section class="section section--warm">
+    <div class="container">
+      <span class="section__label">Perguntas frequentes</span>
+      <h2 class="section__title">Antes de decidir.</h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Funciona pra quem está começando e tem poucos seguidores?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer__inner">
+              Sim. O método não depende de número de seguidores. Depende de posicionamento e comunicação certa. Com o impulsionamento, sua mensagem chega pra quem precisa, independente do tamanho do seu perfil.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Preciso saber mexer em tráfego pago?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer__inner">
+              Não. O impulsionamento que usamos é feito direto pelo Instagram, em poucos cliques. Não é tráfego pago técnico. É simples o suficiente pra qualquer pessoa fazer sozinha seguindo o passo a passo.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Quanto tempo até ver resultado?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer__inner">
+              As primeiras mensagens qualificadas costumam chegar nos primeiros dias depois que a estrutura está rodando. Em poucas semanas, a agenda começa a estabilizar. Depende de aplicar o que é proposto, mas o caminho é curto.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Preciso postar todo dia?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer__inner">
+              Não. A estrutura foi feita pra funcionar sem postar todo dia. Você vai ter um calendário de publicação e uma rotina de stories que leva 5 minutos. O impulsionamento faz o trabalho pesado.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Funciona pra qualquer tipo de terapeuta?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer__inner">
+              Funciona pra terapeutas que atendem individualmente e querem encher a agenda com clientes que pagam bem. Psicólogas, terapeutas holísticas, terapeutas corporais, entre outras. O posicionamento é feito de forma personalizada pra sua área.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            R$11 por dia de impulsionamento é obrigatório?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer__inner">
+              É o valor recomendado porque funciona. São cerca de R$330 por mês. Se a estrutura trouxer uma única cliente, já pagou o mês inteiro de impulsionamento e ainda sobrou.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            E se não funcionar?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer__inner">
+              Você tem 60 dias de acompanhamento direto comigo. Não é um curso gravado que você assiste sozinha. É uma estrutura montada junto, com ajustes no caminho. Se algo não está funcionando, a gente corrige junto.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Por que só 8 vagas?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer__inner">
+              Porque o trabalho é individual. Cada posicionamento é construído especificamente pra você. Não é um template genérico. Pra manter a qualidade, preciso limitar a quantidade de pessoas que atendo por mês.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA FINAL ==================== -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Sua agenda pode estar cheia em poucas semanas.</h2>
+      <p>
+        Se você leu até aqui, é porque sabe que o que está fazendo hoje não está trazendo o resultado que seu trabalho merece. A estrutura existe. As vagas são poucas. A decisão é sua.
+      </p>
+      <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn" target="_blank" rel="noopener">
+        Quero começar agora
+      </a>
+      <span class="cta-note">8 vagas por mês. Atendimento individual.</span>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <p>Método Demanda Inteligente. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ==================== STICKY CTA MOBILE ==================== -->
+  <div class="sticky-cta" id="stickyCta">
+    <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn" target="_blank" rel="noopener">
+      Quero preencher minha agenda
+    </a>
+  </div>
+
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.faq-item.open').forEach(function(openItem) {
+          openItem.classList.remove('open');
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+        }
+      });
+    });
+
+    // Sticky CTA on mobile
+    (function() {
+      var sticky = document.getElementById('stickyCta');
+      var hero = document.querySelector('.hero');
+      var footer = document.querySelector('.footer');
+      var isMobile = window.innerWidth <= 768;
+
+      function checkSticky() {
+        if (window.innerWidth > 768) {
+          sticky.classList.remove('visible');
+          return;
+        }
+
+        var heroBottom = hero.getBoundingClientRect().bottom;
+        var footerTop = footer.getBoundingClientRect().top;
+        var windowHeight = window.innerHeight;
+
+        if (heroBottom < 0 && footerTop > windowHeight) {
+          sticky.classList.add('visible');
+        } else {
+          sticky.classList.remove('visible');
+        }
+      }
+
+      window.addEventListener('scroll', checkSticky, { passive: true });
+      window.addEventListener('resize', checkSticky, { passive: true });
+      checkSticky();
+    })();
+
+    // Smooth reveal on scroll
+    (function() {
+      var sections = document.querySelectorAll('.section, .inline-cta, .final-cta');
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.08 });
+
+      sections.forEach(function(section) {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(24px)';
+        section.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+        observer.observe(section);
+      });
+    })();
+  </script>
+
+</body>
+</html>
