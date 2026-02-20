@@ -567,20 +567,43 @@
     /* ========== FINAL CTA ========== */
     .final-cta {
       text-align: center;
-      padding: 80px 0;
+      padding: 100px 0 80px;
+      background: var(--bg-dark);
+      color: var(--text-on-dark);
     }
 
     .final-cta h2 {
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      margin-bottom: 16px;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: 20px;
+      color: var(--text-on-dark);
     }
 
     .final-cta p {
-      font-size: 1.02rem;
-      color: var(--text-secondary);
+      font-size: 1.08rem;
+      color: #B8B0A6;
       max-width: 520px;
-      margin: 0 auto 32px;
+      margin: 0 auto 40px;
       line-height: 1.75;
+    }
+
+    .final-cta .cta-btn {
+      background: #fff;
+      color: var(--bg-dark);
+      font-size: 1.1rem;
+      padding: 20px 48px;
+      border-radius: 8px;
+      box-shadow: 0 0 40px rgba(255,255,255,0.15);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .final-cta .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 60px rgba(255,255,255,0.25);
+      opacity: 1;
+    }
+
+    .final-cta .cta-note {
+      color: #9A9289;
     }
 
     /* ========== FOOTER ========== */
@@ -687,10 +710,7 @@
           <strong>Isso é pra você se:</strong> é terapeuta, tem formação, faz um bom trabalho, mas sua agenda está vazia ou instável. Você sabe que pode ajudar mais pessoas, mas não sabe como fazer elas chegarem até você.
         </p>
       </div>
-      <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn" target="_blank" rel="noopener">
-        Quero preencher minha agenda
-      </a>
-      <span class="cta-note">8 vagas por mês. Atendimento individual.</span>
+      <span class="cta-note" style="font-size: 0.85rem; color: var(--text-muted);">8 vagas por mês. Atendimento individual.</span>
     </div>
   </section>
 
@@ -756,9 +776,6 @@
   <div class="inline-cta">
     <div class="container">
       <p>Se você se identificou com pelo menos dois desses, continue lendo.</p>
-      <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn cta-btn--secondary" target="_blank" rel="noopener">
-        Quero conhecer o método
-      </a>
     </div>
   </div>
 
@@ -807,9 +824,7 @@
         </div>
 
       </div>
-      <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn" style="background:#fff;color:#1A1A1A;" target="_blank" rel="noopener">
-        Quero aplicar esse método
-      </a>
+      <!-- botão removido - mantém só o CTA final -->
     </div>
   </section>
 
@@ -1076,12 +1091,7 @@
     </div>
   </footer>
 
-  <!-- ==================== STICKY CTA MOBILE ==================== -->
-  <div class="sticky-cta" id="stickyCta">
-    <a href="https://wa.me/5511984772720?text=Oi%2C%20quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20Demanda%20Inteligente" class="cta-btn" target="_blank" rel="noopener">
-      Quero preencher minha agenda
-    </a>
-  </div>
+  <!-- sticky removido -->
 
   <script>
     // FAQ accordion
