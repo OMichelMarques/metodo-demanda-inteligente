@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Empreendedor — Mauna Ventures</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --card: #1a1a1a;
+      --magenta: #FF0099;
+      --white: #ffffff;
+      --gray: #b0b0b0;
+      --gray-dim: #666666;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========== LABEL ========== */
+    .label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      margin-bottom: 28px;
+    }
+
+    /* ========== CTA BUTTON ========== */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 56px;
+      background: var(--magenta);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: #e6008a;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 40px rgba(255, 0, 153, 0.25);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding: 140px 0 120px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero__inner {
+      max-width: 100%;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', 'Inter', sans-serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 48px;
+      max-width: 850px;
+    }
+
+    .hero h1 span.thin {
+      font-weight: 400;
+    }
+
+    .hero h1 .highlight {
+      color: var(--magenta);
+    }
+
+    .hero__sub {
+      font-size: clamp(1.05rem, 2vw, 1.18rem);
+      color: var(--gray);
+      max-width: 560px;
+      line-height: 1.9;
+      letter-spacing: 0.005em;
+    }
+
+    .hero__sub strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .hero__creators {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero__creators span {
+      font-size: 0.78rem;
+      color: var(--gray-dim);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .hero__creators .names {
+      font-size: 0.95rem;
+      color: var(--gray);
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ========== IDENTIFICATION ========== */
+    .identification {
+      padding: 100px 0;
+    }
+
+    .identification h2 {
+      font-family: 'Syne', 'Inter', sans-serif;
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 56px;
+    }
+
+    .identification h2 strong {
+      font-weight: 700;
+      color: var(--magenta);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      padding: 32px 28px;
+      position: relative;
+      transition: border-color 0.3s;
+      border: 1px solid var(--border);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--magenta);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 0, 153, 0.15);
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    .card strong {
+      color: var(--white);
+    }
+
+    /* ========== EXCLUSIVITY ========== */
+    .exclusivity {
+      padding: 100px 0 120px;
+    }
+
+    .exclusivity__content {
+      max-width: 640px;
+    }
+
+    .exclusivity__text {
+      font-size: clamp(1.1rem, 2.2vw, 1.28rem);
+      color: var(--white);
+      line-height: 1.9;
+      margin-bottom: 48px;
+    }
+
+    .exclusivity__text strong {
+      color: var(--magenta);
+    }
+
+    .exclusivity__cta-text {
+      font-size: 1.12rem;
+      color: var(--gray);
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 48px;
+      padding-left: 24px;
+      border-left: 2px solid var(--magenta);
+    }
+
+    /* ========== DIVIDER ========== */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ========== FADE IN ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 80px 0 72px;
+        min-height: auto;
+      }
+
+      .identification {
+        padding: 72px 0;
+      }
+
+      .exclusivity {
+        padding: 72px 0 96px;
+      }
+
+      .card {
+        padding: 24px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero fade-in">
+    <div class="container">
+      <div class="hero__inner">
+        <p class="label">Start Empreendedor</p>
+        <h1><span class="thin">Onde a vontade de empreender vira</span> <span class="highlight">negócio de verdade.</span></h1>
+        <p class="hero__sub">
+          Um programa de 6 meses para profissionais que querem sair do corporativo e construir um negócio próprio com <strong>método, estrutura e execução real</strong>. Não é curso, não é palestra, é uma jornada prática da ideia ao primeiro cliente.
+        </p>
+        <div class="hero__creators">
+          <span>Criado por</span>
+          <span class="names">Rodrigo Maroja & Edu Camargo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ==================== IDENTIFICATION ==================== -->
+  <section class="identification fade-in">
+    <div class="container">
+      <p class="label">Para quem é</p>
+      <h2>Este programa é <strong>para você</strong> se:</h2>
+
+      <div class="cards-grid">
+        <div class="card">
+          <p>Você <strong>entrega muito mais valor</strong> do que recebe e sabe disso</p>
+        </div>
+        <div class="card">
+          <p>Quer <strong>construir algo seu</strong>, mas ainda falta clareza do caminho</p>
+        </div>
+        <div class="card">
+          <p>Já pensou em empreender, mas <strong>travou por medo</strong> de errar</p>
+        </div>
+        <div class="card">
+          <p>Está <strong>pronto para agir</strong>, não apenas para aprender</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ==================== EXCLUSIVITY ==================== -->
+  <section class="exclusivity fade-in">
+    <div class="container">
+      <div class="exclusivity__content">
+        <p class="label">Acesso restrito</p>
+        <p class="exclusivity__text">
+          O Start Empreendedor <strong>não é aberto ao público</strong>. É um programa pago e cada turma é formada por um grupo seleto de profissionais que passam por um processo de seleção com os sócios da Mauna.
+        </p>
+        <p class="exclusivity__cta-text">
+          Se você sabe que tem mais a construir do que o seu cargo atual permite, esta vaga é para você.
+        </p>
+        <a href="#" class="cta-btn">Quero fazer parte</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SCRIPT ==================== -->
+  <script>
+    (function() {
+      var elements = document.querySelectorAll('.fade-in');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.08 });
+      elements.forEach(function(el) { observer.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
