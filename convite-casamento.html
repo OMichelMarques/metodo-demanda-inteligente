@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Michel & Luiza — 25.07.2026</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Josefin+Sans:wght@200;300;400&family=Great+Vibes&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Josefin+Sans:wght@200;300;400&display=swap');
 
     *, *::before, *::after {
       margin: 0;
@@ -14,16 +14,15 @@
     }
 
     :root {
-      --olive: #5C6B4F;
-      --olive-light: #7A8B6A;
-      --olive-dark: #3D4A33;
-      --cream: #F5F0E8;
-      --cream-dark: #EDE5D8;
+      --olive: #6B7A5E;
+      --olive-light: #8A9A7A;
+      --cream: #F7F3ED;
       --warm: #C8B89A;
       --warm-light: #D9CCBA;
       --warm-dark: #A89878;
-      --text: #2C2A25;
-      --text-light: #6B6560;
+      --text: #3A3832;
+      --text-light: #7A756D;
+      --border: #C2B9A7;
     }
 
     html {
@@ -32,39 +31,37 @@
 
     body {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      background: #2C2A25;
+      background: #3A3832;
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 32px 16px;
+      padding: 24px;
     }
 
-    /* ========== CONVITE ========== */
+    /* ========== CONVITE HORIZONTAL ========== */
     .invitation {
       width: 100%;
-      max-width: 640px;
+      max-width: 920px;
+      aspect-ratio: 7 / 5;
       background: var(--cream);
       position: relative;
       overflow: hidden;
-      padding: 56px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.15);
     }
 
-    @media (max-width: 520px) {
-      .invitation {
-        padding: 40px 28px;
-      }
-    }
-
-    /* Borda interna elegante */
+    /* Borda interna */
     .invitation::before {
       content: '';
       position: absolute;
-      top: 16px;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      border: 1px solid var(--warm);
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      border: 1px solid var(--border);
       pointer-events: none;
       z-index: 2;
     }
@@ -72,231 +69,174 @@
     .invitation::after {
       content: '';
       position: absolute;
-      top: 20px;
-      left: 20px;
-      right: 20px;
-      bottom: 20px;
-      border: 0.5px solid rgba(200, 184, 154, 0.35);
+      top: 22px;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      border: 0.5px solid rgba(194, 185, 167, 0.35);
       pointer-events: none;
       z-index: 2;
     }
 
-    /* ========== TEXTURA ========== */
+    /* ========== TEXTURA SUTIL ========== */
     .texture {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      opacity: 0.03;
+      opacity: 0.025;
       background-image:
-        radial-gradient(circle at 20% 30%, var(--olive) 1px, transparent 1px),
-        radial-gradient(circle at 80% 70%, var(--olive) 1px, transparent 1px);
-      background-size: 60px 60px, 80px 80px;
+        radial-gradient(circle at 25% 35%, var(--olive) 0.8px, transparent 0.8px),
+        radial-gradient(circle at 75% 65%, var(--olive) 0.8px, transparent 0.8px);
+      background-size: 50px 50px, 70px 70px;
       z-index: 0;
     }
 
-    /* ========== CONTEUDO ========== */
+    /* ========== LAYOUT PRINCIPAL ========== */
     .content {
       position: relative;
       z-index: 1;
       text-align: center;
+      padding: 48px 64px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
-    /* ========== ORNAMENTO SVG TOPO ========== */
-    .ornament-svg {
-      width: 120px;
-      height: auto;
-      margin-bottom: 32px;
-      opacity: 0.4;
-    }
-
-    .ornament-svg--bottom {
-      margin-bottom: 0;
-      margin-top: 32px;
-      transform: rotate(180deg);
-    }
-
-    /* ========== MONOGRAMA SCRIPT ========== */
+    /* ========== MONOGRAMA ENTRELAÇADO ========== */
     .monogram {
-      margin-bottom: 8px;
+      margin-bottom: 28px;
     }
 
-    .monogram__text {
-      font-family: 'Great Vibes', cursive;
-      font-size: 4.2rem;
-      color: var(--olive);
-      line-height: 1;
-      font-weight: 400;
-    }
-
-    .monogram__line {
-      width: 80px;
-      height: 0.5px;
-      background: var(--warm);
-      margin: 20px auto 0;
+    .monogram svg {
+      width: 130px;
+      height: 130px;
     }
 
     /* ========== TEXTO CONVITE ========== */
-    .invite-text {
+    .invite-line {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 300;
+      color: var(--text-light);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* ========== NOMES DO CASAL ========== */
+    .couple {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 28px;
+      flex-wrap: nowrap;
+    }
+
+    .couple__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .couple__and {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--olive);
+      letter-spacing: 0.04em;
+    }
+
+    /* ========== LINHA DECORATIVA ========== */
+    .line-decor {
+      width: 60px;
+      height: 0.5px;
+      background: var(--warm);
+      margin: 0 auto 24px;
+    }
+
+    /* ========== INFO EVENTO ========== */
+    .event-info {
+      margin-bottom: 8px;
+    }
+
+    .event-info__text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.92rem;
+      font-weight: 400;
+      color: var(--text-light);
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+    }
+
+    .event-info__text em {
+      font-style: italic;
+      color: var(--warm-dark);
+    }
+
+    /* ========== DATA DESTACADA ========== */
+    .date-highlight {
       font-family: 'Josefin Sans', sans-serif;
       font-size: 0.72rem;
       font-weight: 300;
       color: var(--text-light);
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin: 28px 0 32px;
+      margin-bottom: 6px;
     }
 
-    /* ========== NOMES ========== */
-    .names {
-      margin-bottom: 32px;
-    }
-
-    .name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.65rem;
-      font-weight: 400;
-      color: var(--text);
-      line-height: 1.3;
-      letter-spacing: 0.03em;
-      white-space: nowrap;
-    }
-
-    .names__and {
-      display: block;
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.6rem;
-      color: var(--olive);
-      margin: 12px 0;
-      font-weight: 400;
-    }
-
-    /* ========== SEPARADOR ========== */
-    .divider {
+    /* ========== LINHAS DECORATIVAS DUPLAS ========== */
+    .double-line {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin: 28px 0;
-      color: var(--olive-light);
+      gap: 3px;
+      margin: 20px auto;
     }
 
-    .divider__line {
-      width: 50px;
+    .double-line__bar {
+      width: 40px;
       height: 0.5px;
       background: var(--warm);
     }
 
-    .divider__dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--warm);
-    }
-
-    /* ========== DATA ========== */
-    .date-section {
-      margin-bottom: 28px;
-    }
-
-    .date-section__day-name {
+    /* ========== RSVP ========== */
+    .rsvp {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      margin-bottom: 16px;
-    }
-
-    .date-display {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-    }
-
-    .date-display__part {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-light);
-    }
-
-    .date-display__number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
+      font-size: 0.58rem;
       font-weight: 300;
-      color: var(--olive);
-      line-height: 1;
-    }
-
-    .date-display__sep {
-      width: 0.5px;
-      height: 40px;
-      background: var(--warm);
-    }
-
-    /* ========== LOCAL ========== */
-    .location {
-      margin-bottom: 8px;
-    }
-
-    .location__city {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--text);
-      letter-spacing: 0.06em;
-      margin-bottom: 4px;
-    }
-
-    .location__state {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text-light);
-    }
-
-    .location__note {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
-      font-style: italic;
       color: var(--warm-dark);
-      margin-top: 14px;
-    }
-
-    /* ========== FOOTER ========== */
-    .footer-text {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.62rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--warm-dark);
-      opacity: 0.55;
-      margin-top: 8px;
+      opacity: 0.6;
+      margin-top: 4px;
     }
 
-    /* ========== BOTANICOS ========== */
+    /* ========== BOTANICO CANTOS ========== */
     .botanical {
       position: absolute;
       z-index: 1;
-      opacity: 0.07;
+      opacity: 0.06;
     }
 
     .botanical--tl {
       top: -10px;
-      left: -20px;
-      width: 220px;
+      left: -15px;
+      width: 180px;
       transform: rotate(15deg);
     }
 
     .botanical--br {
       bottom: -10px;
-      right: -20px;
-      width: 220px;
+      right: -15px;
+      width: 180px;
       transform: rotate(195deg);
     }
 
@@ -308,19 +248,16 @@
     /* ========== ANIMACOES ========== */
     .fade-up {
       opacity: 0;
-      transform: translateY(14px);
+      transform: translateY(10px);
       animation: fadeUp 1s ease forwards;
     }
 
     .d1 { animation-delay: 0.1s; }
-    .d2 { animation-delay: 0.25s; }
-    .d3 { animation-delay: 0.4s; }
-    .d4 { animation-delay: 0.55s; }
-    .d5 { animation-delay: 0.7s; }
-    .d6 { animation-delay: 0.85s; }
-    .d7 { animation-delay: 1.0s; }
-    .d8 { animation-delay: 1.15s; }
-    .d9 { animation-delay: 1.3s; }
+    .d2 { animation-delay: 0.3s; }
+    .d3 { animation-delay: 0.5s; }
+    .d4 { animation-delay: 0.7s; }
+    .d5 { animation-delay: 0.9s; }
+    .d6 { animation-delay: 1.1s; }
 
     @keyframes fadeUp {
       to {
@@ -330,21 +267,38 @@
     }
 
     /* ========== RESPONSIVE ========== */
-    @media (max-width: 520px) {
-      .monogram__text {
-        font-size: 3.2rem;
+    @media (max-width: 700px) {
+      .invitation {
+        aspect-ratio: auto;
+        padding: 0;
       }
 
-      .name {
+      .content {
+        padding: 40px 28px;
+      }
+
+      .couple {
+        flex-direction: column;
+        gap: 4px;
+        align-items: center;
+      }
+
+      .couple__name {
+        font-size: 1.6rem;
+      }
+
+      .couple__and {
         font-size: 1.2rem;
       }
 
-      .date-display__number {
-        font-size: 3.5rem;
+      .parents {
+        flex-direction: column;
+        gap: 12px;
       }
 
-      .date-display {
-        gap: 16px;
+      .monogram svg {
+        width: 50px;
+        height: 50px;
       }
 
       .invitation::before {
@@ -354,15 +308,12 @@
       .invitation::after {
         top: 16px; left: 16px; right: 16px; bottom: 16px;
       }
-
-      .ornament-svg {
-        width: 90px;
-      }
     }
 
-    @media (max-width: 380px) {
-      .name {
-        font-size: 1.05rem;
+    @media (max-width: 480px) {
+      .couple__name {
+        font-size: 1.3rem;
+        letter-spacing: 0.08em;
       }
     }
   </style>
@@ -372,96 +323,80 @@
   <div class="invitation">
     <div class="texture"></div>
 
-    <!-- Botanicos decorativos -->
+    <!-- Botanicos sutis nos cantos -->
     <div class="botanical botanical--tl">
       <svg viewBox="0 0 200 300" fill="none">
-        <path d="M100 280 Q80 200 40 160 Q20 140 10 100 Q5 60 30 30 Q50 10 80 20 Q100 30 100 60" stroke="#5C6B4F" stroke-width="1.2" fill="none"/>
-        <path d="M100 280 Q90 220 60 180 Q40 160 35 130 Q30 100 50 80 Q65 65 80 75" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
-        <path d="M100 280 Q110 210 130 170 Q150 140 155 110 Q160 80 140 55 Q125 40 110 50" stroke="#5C6B4F" stroke-width="1" fill="none"/>
-        <path d="M40 160 Q55 155 65 145 Q75 135 70 120" stroke="#5C6B4F" stroke-width="0.6" fill="none"/>
-        <path d="M130 170 Q118 162 112 150 Q106 138 112 125" stroke="#5C6B4F" stroke-width="0.6" fill="none"/>
+        <path d="M100 280 Q80 200 40 160 Q20 140 10 100 Q5 60 30 30 Q50 10 80 20 Q100 30 100 60" stroke="#6B7A5E" stroke-width="1.2" fill="none"/>
+        <path d="M100 280 Q90 220 60 180 Q40 160 35 130 Q30 100 50 80 Q65 65 80 75" stroke="#6B7A5E" stroke-width="0.8" fill="none"/>
+        <path d="M100 280 Q110 210 130 170 Q150 140 155 110 Q160 80 140 55 Q125 40 110 50" stroke="#6B7A5E" stroke-width="1" fill="none"/>
       </svg>
     </div>
 
     <div class="botanical botanical--br">
       <svg viewBox="0 0 200 300" fill="none">
-        <path d="M100 280 Q80 200 40 160 Q20 140 10 100 Q5 60 30 30 Q50 10 80 20 Q100 30 100 60" stroke="#5C6B4F" stroke-width="1.2" fill="none"/>
-        <path d="M100 280 Q90 220 60 180 Q40 160 35 130 Q30 100 50 80 Q65 65 80 75" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
-        <path d="M100 280 Q110 210 130 170 Q150 140 155 110 Q160 80 140 55 Q125 40 110 50" stroke="#5C6B4F" stroke-width="1" fill="none"/>
+        <path d="M100 280 Q80 200 40 160 Q20 140 10 100 Q5 60 30 30 Q50 10 80 20 Q100 30 100 60" stroke="#6B7A5E" stroke-width="1.2" fill="none"/>
+        <path d="M100 280 Q90 220 60 180 Q40 160 35 130 Q30 100 50 80 Q65 65 80 75" stroke="#6B7A5E" stroke-width="0.8" fill="none"/>
+        <path d="M100 280 Q110 210 130 170 Q150 140 155 110 Q160 80 140 55 Q125 40 110 50" stroke="#6B7A5E" stroke-width="1" fill="none"/>
       </svg>
     </div>
 
     <div class="content">
 
-      <!-- Ornamento topo -->
-      <svg class="ornament-svg fade-up d1" viewBox="0 0 120 24" fill="none">
-        <path d="M60 2 Q50 12 30 12 Q10 12 2 6" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
-        <path d="M60 2 Q70 12 90 12 Q110 12 118 6" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
-        <path d="M60 2 Q55 10 42 14 Q30 16 20 14" stroke="#5C6B4F" stroke-width="0.5" fill="none"/>
-        <path d="M60 2 Q65 10 78 14 Q90 16 100 14" stroke="#5C6B4F" stroke-width="0.5" fill="none"/>
-        <circle cx="60" cy="2" r="1.5" fill="#5C6B4F"/>
-      </svg>
-
-      <!-- Monograma cursivo -->
-      <div class="monogram fade-up d2">
-        <span class="monogram__text">Michel & Luiza</span>
-        <div class="monogram__line"></div>
+      <!-- Monograma M&L para bordado -->
+      <div class="monogram fade-up d1">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Circulo externo elegante -->
+          <circle cx="100" cy="100" r="88" stroke="#6B7A5E" stroke-width="0.8"/>
+          <circle cx="100" cy="100" r="84" stroke="#C2B9A7" stroke-width="0.4"/>
+          <!-- Ramos de oliveira esquerda -->
+          <path d="M30 100 Q38 88 42 78" stroke="#6B7A5E" stroke-width="0.7" fill="none"/>
+          <ellipse cx="36" cy="86" rx="4" ry="8" transform="rotate(-25 36 86)" stroke="#6B7A5E" stroke-width="0.5" fill="none"/>
+          <ellipse cx="40" cy="76" rx="3.5" ry="7" transform="rotate(-15 40 76)" stroke="#6B7A5E" stroke-width="0.5" fill="none"/>
+          <ellipse cx="33" cy="94" rx="4" ry="8" transform="rotate(-35 33 94)" stroke="#6B7A5E" stroke-width="0.5" fill="none"/>
+          <!-- Ramos de oliveira direita -->
+          <path d="M170 100 Q162 88 158 78" stroke="#6B7A5E" stroke-width="0.7" fill="none"/>
+          <ellipse cx="164" cy="86" rx="4" ry="8" transform="rotate(25 164 86)" stroke="#6B7A5E" stroke-width="0.5" fill="none"/>
+          <ellipse cx="160" cy="76" rx="3.5" ry="7" transform="rotate(15 160 76)" stroke="#6B7A5E" stroke-width="0.5" fill="none"/>
+          <ellipse cx="167" cy="94" rx="4" ry="8" transform="rotate(35 167 94)" stroke="#6B7A5E" stroke-width="0.5" fill="none"/>
+          <!-- Letra M -->
+          <text x="58" y="116" font-family="'Cormorant Garamond', serif" font-size="56" font-weight="300" font-style="italic" fill="#6B7A5E">M</text>
+          <!-- Ampersand pequeno -->
+          <text x="100" y="124" font-family="'Cormorant Garamond', serif" font-size="22" font-weight="300" font-style="italic" fill="#A89878" text-anchor="middle" opacity="0.8">&amp;</text>
+          <!-- Letra L -->
+          <text x="108" y="116" font-family="'Cormorant Garamond', serif" font-size="56" font-weight="300" font-style="italic" fill="#6B7A5E">L</text>
+          <!-- Linha decorativa inferior -->
+          <line x1="70" y1="130" x2="130" y2="130" stroke="#C2B9A7" stroke-width="0.5"/>
+        </svg>
       </div>
 
       <!-- Texto convite -->
-      <p class="invite-text fade-up d3">Convidam para celebrar o seu casamento</p>
+      <p class="invite-line fade-up d2">Convidam para celebrar o seu casamento</p>
 
-      <!-- Nomes completos -->
-      <div class="names fade-up d4">
-        <p class="name">Michel Vieira Marques de Lima</p>
-        <span class="names__and">e</span>
-        <p class="name">Luiza Silvestrin Lucena</p>
+      <!-- Nomes do casal -->
+      <div class="couple fade-up d2">
+        <span class="couple__name">Michel</span>
+        <span class="couple__and">e</span>
+        <span class="couple__name">Luiza</span>
       </div>
 
-      <!-- Separador -->
-      <div class="divider fade-up d5">
-        <div class="divider__line"></div>
-        <div class="divider__dot"></div>
-        <div class="divider__line"></div>
+      <!-- Linha decorativa -->
+      <div class="line-decor fade-up d3"></div>
+
+      <!-- Info do evento -->
+      <div class="event-info fade-up d4">
+        <p class="date-highlight">Sabado, vinte e cinco de julho de dois mil e vinte e seis</p>
+        <p class="event-info__text" style="margin-top: 12px;">Taquara, Rio Grande do Sul</p>
+        <p class="event-info__text"><em>Local e horario a confirmar</em></p>
       </div>
 
-      <!-- Data -->
-      <div class="date-section fade-up d6">
-        <p class="date-section__day-name">Sabado</p>
-        <div class="date-display">
-          <span class="date-display__part">Julho</span>
-          <div class="date-display__sep"></div>
-          <span class="date-display__number">25</span>
-          <div class="date-display__sep"></div>
-          <span class="date-display__part">2026</span>
-        </div>
+      <!-- Linhas duplas decorativas -->
+      <div class="double-line fade-up d5">
+        <div class="double-line__bar"></div>
+        <div class="double-line__bar"></div>
       </div>
 
-      <!-- Separador -->
-      <div class="divider fade-up d7">
-        <div class="divider__line"></div>
-        <div class="divider__dot"></div>
-        <div class="divider__line"></div>
-      </div>
-
-      <!-- Local -->
-      <div class="location fade-up d8">
-        <p class="location__city">Taquara</p>
-        <p class="location__state">Rio Grande do Sul</p>
-        <p class="location__note">Local e horario a confirmar</p>
-      </div>
-
-      <!-- Footer -->
-      <p class="footer-text fade-up d9">Sera uma alegria ter voce conosco</p>
-
-      <!-- Ornamento base -->
-      <svg class="ornament-svg ornament-svg--bottom fade-up d9" viewBox="0 0 120 24" fill="none">
-        <path d="M60 2 Q50 12 30 12 Q10 12 2 6" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
-        <path d="M60 2 Q70 12 90 12 Q110 12 118 6" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
-        <path d="M60 2 Q55 10 42 14 Q30 16 20 14" stroke="#5C6B4F" stroke-width="0.5" fill="none"/>
-        <path d="M60 2 Q65 10 78 14 Q90 16 100 14" stroke="#5C6B4F" stroke-width="0.5" fill="none"/>
-        <circle cx="60" cy="2" r="1.5" fill="#5C6B4F"/>
-      </svg>
+      <!-- RSVP -->
+      <p class="rsvp fade-up d5">Sera uma alegria ter voce conosco</p>
 
     </div>
   </div>
