@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michel & Luiza — 25.07.2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Josefin+Sans:wght@200;300;400&family=Great+Vibes&display=swap');
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --olive: #5C6B4F;
+      --olive-light: #7A8B6A;
+      --olive-dark: #3D4A33;
+      --cream: #F5F0E8;
+      --cream-dark: #EDE5D8;
+      --warm: #C8B89A;
+      --warm-light: #D9CCBA;
+      --warm-dark: #A89878;
+      --text: #2C2A25;
+      --text-light: #6B6560;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: #2C2A25;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    /* ========== CONVITE ========== */
+    .invitation {
+      width: 100%;
+      max-width: 640px;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+      padding: 56px 48px;
+    }
+
+    @media (max-width: 520px) {
+      .invitation {
+        padding: 40px 28px;
+      }
+    }
+
+    /* Borda interna elegante */
+    .invitation::before {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      border: 1px solid var(--warm);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .invitation::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 0.5px solid rgba(200, 184, 154, 0.35);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ========== TEXTURA ========== */
+    .texture {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0.03;
+      background-image:
+        radial-gradient(circle at 20% 30%, var(--olive) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, var(--olive) 1px, transparent 1px);
+      background-size: 60px 60px, 80px 80px;
+      z-index: 0;
+    }
+
+    /* ========== CONTEUDO ========== */
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ========== ORNAMENTO SVG TOPO ========== */
+    .ornament-svg {
+      width: 120px;
+      height: auto;
+      margin-bottom: 32px;
+      opacity: 0.4;
+    }
+
+    .ornament-svg--bottom {
+      margin-bottom: 0;
+      margin-top: 32px;
+      transform: rotate(180deg);
+    }
+
+    /* ========== MONOGRAMA SCRIPT ========== */
+    .monogram {
+      margin-bottom: 8px;
+    }
+
+    .monogram__text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4.2rem;
+      color: var(--olive);
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .monogram__line {
+      width: 80px;
+      height: 0.5px;
+      background: var(--warm);
+      margin: 20px auto 0;
+    }
+
+    /* ========== TEXTO CONVITE ========== */
+    .invite-text {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--text-light);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin: 28px 0 32px;
+    }
+
+    /* ========== NOMES ========== */
+    .names {
+      margin-bottom: 32px;
+    }
+
+    .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .names__and {
+      display: block;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.6rem;
+      color: var(--olive);
+      margin: 12px 0;
+      font-weight: 400;
+    }
+
+    /* ========== SEPARADOR ========== */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 28px 0;
+      color: var(--olive-light);
+    }
+
+    .divider__line {
+      width: 50px;
+      height: 0.5px;
+      background: var(--warm);
+    }
+
+    .divider__dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--warm);
+    }
+
+    /* ========== DATA ========== */
+    .date-section {
+      margin-bottom: 28px;
+    }
+
+    .date-section__day-name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+
+    .date-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .date-display__part {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .date-display__number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      font-weight: 300;
+      color: var(--olive);
+      line-height: 1;
+    }
+
+    .date-display__sep {
+      width: 0.5px;
+      height: 40px;
+      background: var(--warm);
+    }
+
+    /* ========== LOCAL ========== */
+    .location {
+      margin-bottom: 8px;
+    }
+
+    .location__city {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+
+    .location__state {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .location__note {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--warm-dark);
+      margin-top: 14px;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer-text {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--warm-dark);
+      opacity: 0.55;
+      margin-top: 8px;
+    }
+
+    /* ========== BOTANICOS ========== */
+    .botanical {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.07;
+    }
+
+    .botanical--tl {
+      top: -10px;
+      left: -20px;
+      width: 220px;
+      transform: rotate(15deg);
+    }
+
+    .botanical--br {
+      bottom: -10px;
+      right: -20px;
+      width: 220px;
+      transform: rotate(195deg);
+    }
+
+    .botanical svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* ========== ANIMACOES ========== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.25s; }
+    .d3 { animation-delay: 0.4s; }
+    .d4 { animation-delay: 0.55s; }
+    .d5 { animation-delay: 0.7s; }
+    .d6 { animation-delay: 0.85s; }
+    .d7 { animation-delay: 1.0s; }
+    .d8 { animation-delay: 1.15s; }
+    .d9 { animation-delay: 1.3s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 520px) {
+      .monogram__text {
+        font-size: 3.2rem;
+      }
+
+      .name {
+        font-size: 1.2rem;
+      }
+
+      .date-display__number {
+        font-size: 3.5rem;
+      }
+
+      .date-display {
+        gap: 16px;
+      }
+
+      .invitation::before {
+        top: 12px; left: 12px; right: 12px; bottom: 12px;
+      }
+
+      .invitation::after {
+        top: 16px; left: 16px; right: 16px; bottom: 16px;
+      }
+
+      .ornament-svg {
+        width: 90px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .name {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="invitation">
+    <div class="texture"></div>
+
+    <!-- Botanicos decorativos -->
+    <div class="botanical botanical--tl">
+      <svg viewBox="0 0 200 300" fill="none">
+        <path d="M100 280 Q80 200 40 160 Q20 140 10 100 Q5 60 30 30 Q50 10 80 20 Q100 30 100 60" stroke="#5C6B4F" stroke-width="1.2" fill="none"/>
+        <path d="M100 280 Q90 220 60 180 Q40 160 35 130 Q30 100 50 80 Q65 65 80 75" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
+        <path d="M100 280 Q110 210 130 170 Q150 140 155 110 Q160 80 140 55 Q125 40 110 50" stroke="#5C6B4F" stroke-width="1" fill="none"/>
+        <path d="M40 160 Q55 155 65 145 Q75 135 70 120" stroke="#5C6B4F" stroke-width="0.6" fill="none"/>
+        <path d="M130 170 Q118 162 112 150 Q106 138 112 125" stroke="#5C6B4F" stroke-width="0.6" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="botanical botanical--br">
+      <svg viewBox="0 0 200 300" fill="none">
+        <path d="M100 280 Q80 200 40 160 Q20 140 10 100 Q5 60 30 30 Q50 10 80 20 Q100 30 100 60" stroke="#5C6B4F" stroke-width="1.2" fill="none"/>
+        <path d="M100 280 Q90 220 60 180 Q40 160 35 130 Q30 100 50 80 Q65 65 80 75" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
+        <path d="M100 280 Q110 210 130 170 Q150 140 155 110 Q160 80 140 55 Q125 40 110 50" stroke="#5C6B4F" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="content">
+
+      <!-- Ornamento topo -->
+      <svg class="ornament-svg fade-up d1" viewBox="0 0 120 24" fill="none">
+        <path d="M60 2 Q50 12 30 12 Q10 12 2 6" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
+        <path d="M60 2 Q70 12 90 12 Q110 12 118 6" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
+        <path d="M60 2 Q55 10 42 14 Q30 16 20 14" stroke="#5C6B4F" stroke-width="0.5" fill="none"/>
+        <path d="M60 2 Q65 10 78 14 Q90 16 100 14" stroke="#5C6B4F" stroke-width="0.5" fill="none"/>
+        <circle cx="60" cy="2" r="1.5" fill="#5C6B4F"/>
+      </svg>
+
+      <!-- Monograma cursivo -->
+      <div class="monogram fade-up d2">
+        <span class="monogram__text">Michel & Luiza</span>
+        <div class="monogram__line"></div>
+      </div>
+
+      <!-- Texto convite -->
+      <p class="invite-text fade-up d3">Convidam para celebrar o seu casamento</p>
+
+      <!-- Nomes completos -->
+      <div class="names fade-up d4">
+        <p class="name">Michel Vieira Marques de Lima</p>
+        <span class="names__and">e</span>
+        <p class="name">Luiza Silvestrin Lucena</p>
+      </div>
+
+      <!-- Separador -->
+      <div class="divider fade-up d5">
+        <div class="divider__line"></div>
+        <div class="divider__dot"></div>
+        <div class="divider__line"></div>
+      </div>
+
+      <!-- Data -->
+      <div class="date-section fade-up d6">
+        <p class="date-section__day-name">Sabado</p>
+        <div class="date-display">
+          <span class="date-display__part">Julho</span>
+          <div class="date-display__sep"></div>
+          <span class="date-display__number">25</span>
+          <div class="date-display__sep"></div>
+          <span class="date-display__part">2026</span>
+        </div>
+      </div>
+
+      <!-- Separador -->
+      <div class="divider fade-up d7">
+        <div class="divider__line"></div>
+        <div class="divider__dot"></div>
+        <div class="divider__line"></div>
+      </div>
+
+      <!-- Local -->
+      <div class="location fade-up d8">
+        <p class="location__city">Taquara</p>
+        <p class="location__state">Rio Grande do Sul</p>
+        <p class="location__note">Local e horario a confirmar</p>
+      </div>
+
+      <!-- Footer -->
+      <p class="footer-text fade-up d9">Sera uma alegria ter voce conosco</p>
+
+      <!-- Ornamento base -->
+      <svg class="ornament-svg ornament-svg--bottom fade-up d9" viewBox="0 0 120 24" fill="none">
+        <path d="M60 2 Q50 12 30 12 Q10 12 2 6" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
+        <path d="M60 2 Q70 12 90 12 Q110 12 118 6" stroke="#5C6B4F" stroke-width="0.8" fill="none"/>
+        <path d="M60 2 Q55 10 42 14 Q30 16 20 14" stroke="#5C6B4F" stroke-width="0.5" fill="none"/>
+        <path d="M60 2 Q65 10 78 14 Q90 16 100 14" stroke="#5C6B4F" stroke-width="0.5" fill="none"/>
+        <circle cx="60" cy="2" r="1.5" fill="#5C6B4F"/>
+      </svg>
+
+    </div>
+  </div>
+
+</body>
+</html>
